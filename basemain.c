@@ -2,7 +2,7 @@
 //For Windows make sure #define Windows is not commented out.
 // For Linux make sure #define Windows is commented out. 
 // The last option uses Intel MKL.  You may link with MKL, link with another BLAS library
-// or just comment out the call to dgemm.  Linux notes compile with: icc -O2 -c -g -qopt-report-3 *.c  
+// or just comment out the call to dgemm.  Linux notes compile with: icc -O2 -c -g -qopt-report=3 *.c  
 //Linux - link with-lmkl_intel_ilp64 -lmkl_core -lmkl_sequential -lm -lrt
 // Linux - This will work with gcc as well - just revert back to standard
 // malloc and free if you choose not to use the intel compiler.
