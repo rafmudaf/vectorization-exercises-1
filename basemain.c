@@ -12,7 +12,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
-#include <Accelerate/Accelerate.h>
+#include "mkl.h"
 
 #ifdef WINDOWS
 #include <windows.h>
@@ -65,10 +65,10 @@ int main(int argc, char *argv[])
    }
 // allocate matrices
 
-   a = (double *)malloc((n+blockSize)*(n+blockSize)* sizeof(double)) ;
-   b = (double *)malloc((n+blockSize)*(n+blockSize)* sizeof(double)) ;
-   c = (double *)malloc((n+blockSize)*(n+blockSize)* sizeof(double)) ;
-   aa = (double *)malloc((n+blockSize)*(n+blockSize)* sizeof(double)) ;
+   a = (double *)_mm_malloc((n+blockSize)*(n+blockSize)* sizeof(double),64) ;
+   b = (double *)_mm_malloc((n+blockSize)*(n+blockSize)* sizeof(double),64) ;
+   c = (double *)_mm_malloc((n+blockSize)*(n+blockSize)* sizeof(double),64) ;
+   aa = (double *)_mm_malloc((n+blockSize)*(n+blockSize)* sizeof(double),64) ;
 
    if (aa == NULL) // cheap check only the last allocation checked.
    {
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
    }
 
 // fill matrices
-      srand(4) ; // set random seed (change to go off time stamp to make it better
+      srand(4.16) ; // set random seed (change to go off time stamp to make it better
 
    fillmat(n,n,b) ;
    fillmat(n,n,c) ;
@@ -173,10 +173,10 @@ int main(int argc, char *argv[])
    printf("block ordering mm2      %lf\n",ntime(ts5,ts6)) ;
    printf("mkl cblas_dgemm         %lf\n", ntime(ts6, ts7));
      
-   free(a);
-   free(b);
-   free(c);
-   free(aa);
+   _mm_free(a);
+   _mm_free(b);
+   _mm_free(c);
+   _mm_free(aa);
 }
 
 #ifdef WINDOWS
