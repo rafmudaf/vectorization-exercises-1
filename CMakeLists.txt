@@ -5,9 +5,11 @@ cmake_minimum_required(VERSION 3.6)
 
 project(submm VERSION 0.1 LANGUAGES C)
 
-if(CMAKE_Fortran_COMPILER_ID MATCHES GNU)
-  set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -g -fprofile-arcs -ftest-coverage")
+if(CMAKE_C_COMPILER_ID MATCHES GNU)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -fprofile-arcs -ftest-coverage")
 endif()
+
+set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 
 find_package(blas)
 message("BLAS_LIBRARIES ${BLAS_LIBRARIES}")
